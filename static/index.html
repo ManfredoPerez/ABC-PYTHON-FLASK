@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Frontend</title>
+    <link rel="stylesheet" href="https://bootswatch.com/5/yeti/bootstrap.min.css" />
+</head>
+
+<body class="bg-secondary">
+    <div class="container">
+        <div class="row align-items-start">
+
+            <div class="col-md-4 ml-auto col">
+                <h1 class="fs-3 text-center">ABC Catalogo de Productos</h1>
+
+                <form class="card card-body bg-info text-white" id="userForm">
+                    <label for="Descripcion">
+                        <h5>Descripcion:</h5>
+                    </label>
+                    <input name="descripcion" type="text" placeholder="Descripcion" class="form-control mb-2"
+                        required />
+
+                    <label for="Precio">
+                        <h5> Precio: </h5>
+                    </label>
+                    <input name="precio" type="text" placeholder="Precio" class="form-control mb-2" required />
+
+                    <label for="Cantidad">
+                        <h5>Cantidad:</h5>
+                    </label>
+                    <input name="cantidad" type="text" placeholder="Cantidad" class="form-control mb-2" required />
+
+                    <label for="Categoria">
+                        <h5>Categoria:</h5>
+                    </label>
+                    <input name="categoria" type="text" placeholder="Categoria" class="form-control mb-2" required />
+
+                    <label for="Categoria_ca">
+                        <h5> Descripcion Categoria: </h5>
+                    </label>
+                    <input name="descripcion_categoria" type="text" placeholder="Descripcion categoria"
+                        class="form-control mb-2" required />
+
+                    <button class="btn btn-primary" width="5">Guardar</button>
+                </form>
+
+
+            </div>
+
+            <div class="col">
+                <h2>Grafica </h2>
+                <canvas id="grafica" class="w-50 h-50"> </canvas>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="w-25 row align-items-start">
+        <!-- User's List -->
+        <ul id="userList" class="list-group"></ul>
+    </div>
+
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <script>
+        // Obtenemos los datos de la gráfica desde el servidor
+        fetch('/datos_grafica_productos_categoria')
+            .then(response => response.json())
+            .then(datosGrafica => {
+                // Creamos la gráfica de pastel
+                var ctx = document.getElementById('grafica').getContext('2d');
+                var grafica = new Chart(ctx, {
+                    type: 'pie',
+                    data: {
+                        labels: datosGrafica.etiquetas,
+                        datasets: [{
+                            data: datosGrafica.datos,
+                            backgroundColor: [
+                                '#FF6384',
+                                '#36A2EB',
+                                '#FFCE56',
+                                '#8BC34A',
+                                '#9C27B0',
+                                '#673AB7',
+                                '#2196F3',
+                                '#FF5722',
+                                '#607D8B',
+                                '#4CAF50'
+                            ]
+                        }]
+                    }
+                });
+            });
+
+        console.log(grafica.width); // 300
+    </script>
+    <script src="/static/main.js"></script>
+</body>
+
+</html>
