@@ -66,12 +66,13 @@ userForm.addEventListener("submit", async (e) => {
   userForm.reset();
 });
 
+//PARA MOSTRAR LOS DATOS 
 function renderUser(users)  {
   const userList = document.querySelector("#userList");
   userList.innerHTML = "";
   users.forEach((user) => {
     const userItem = document.createElement("li");
-    userItem.classList = "list-group-item list-group-item-danger my-2";
+    userItem.classList = "list-group-item list-group-item-warning my-2";
     userItem.innerHTML = `
       <div class="container">  
           <header class="d-flex justify-content-between ">
@@ -88,7 +89,7 @@ function renderUser(users)  {
         </div>  
     `;
 
-    // Handle delete button
+    // BOTON ELIMINAR
     const btnDelete = userItem.querySelector(".btn-delete");
 
     btnDelete.addEventListener("click", async (e) => {
@@ -104,7 +105,7 @@ function renderUser(users)  {
 
     userList.appendChild(userItem);
 
-    // Handle edit button
+    // BOTON EDITAR
     const btnEdit = userItem.querySelector(".btn-edit");
 
     btnEdit.addEventListener("click", async (e) => {
